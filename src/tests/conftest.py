@@ -1,17 +1,25 @@
-import os
 import subprocess
 from pathlib import Path
 
 import pytest
-from dotenv import load_dotenv
 
-load_dotenv()
-BLENDER_EXE_PATH = Path(os.getenv("BLENDER_EXE_PATH"))
+
+def pytest_addoption(parser):
+    parser.addoption(
+        "--blender-exe-path",
+        action="store",
+        help="Path to Blender executable."
+    )
 
 
 @pytest.fixture
-def run_blender_script():
+def blender_exe_path(request) -> str:
+    return request.config.getoption("--blender-exe-path")
+
+
+@pytest.fixture
+def run_blender_script(blender_exe_path: str):
     def _run_blender_script(path: Path):
-        return subprocess.run(["powershell", "-Command", f".'{BLENDER_EXE_PATH}' -P '{path}'"])
+        return subprocess.run(["powershell", "-Command", f".'{blender_exe_path}' -P '{path}'"])
 
     return _run_blender_script
