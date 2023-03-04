@@ -1,9 +1,12 @@
+import os
 import subprocess
 from pathlib import Path
 
 import pytest
+from dotenv import load_dotenv
 
-BLENDER_EXE_PATH = Path(r"C:\Program Files\Blender Foundation\Blender 3.3\Blender.exe")
+load_dotenv()
+BLENDER_EXE_PATH = Path(os.getenv("BLENDER_EXE_PATH"))
 
 
 @pytest.fixture
