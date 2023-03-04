@@ -20,6 +20,7 @@ def blender_exe_path(request) -> str:
 @pytest.fixture
 def run_blender_script(blender_exe_path: str):
     def _run_blender_script(path: Path):
-        return subprocess.run(["powershell", "-Command", f".'{blender_exe_path}' -P '{path}'"])
+        return subprocess.run(["powershell", "-Command",
+                               f".'{blender_exe_path}' -b -P '{path}'"])
 
     return _run_blender_script
