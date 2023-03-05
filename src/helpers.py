@@ -7,8 +7,9 @@ from pathlib import Path
 
 def run_blender_script(blender_exe_path: str | Path,
                        script_path: str | Path,
-                       script_args: Iterable = None, *,
-                       headless: bool = True) -> TextIOWrapper:
+                       script_args: Iterable = None,
+                       *,
+                       headless: bool) -> TextIOWrapper:
     """
     Run script and save its output to ScriptStdoutContainer.latest_stdout
     The equivalent of running the script without saving stdout would be:
