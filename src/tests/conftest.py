@@ -30,7 +30,7 @@ def script_stdout_container() -> Type[ScriptStdoutContainer]:
 
 @pytest.fixture
 def run_blender_script(blender_exe_path: str, script_stdout_container):
-    def _run_blender_script(path: str | Path, headless: bool = True):
+    def _run_blender_script(path: str | Path, args: list = None, *, headless: bool = True):
         """
         Run script and save its output to ScriptStdoutContainer.latest_stdout
         The equivalent of running the script without saving stdout would be:
@@ -46,14 +46,14 @@ def run_blender_script(blender_exe_path: str, script_stdout_container):
         """
         program: str = "powershell"
 
-        program_args: list[str] = [f".'{blender_exe_path}' "
-                                   f"{'-b' if headless else ''} "
-                                   f"-P '{path}'"]
-
-        program_args: str = " ".join(program_args)
+        program_args: str = f".'{blender_exe_path}' " \
+                            f"{'-b' if headless else ''} " \
+                            f"-P '{path}'" \
+                            f"-- {' '.join(str(arg) for arg in args) if args else ''}"
 
         proc = subprocess.Popen([program, program_args], stdout=subprocess.PIPE)
 
+        # saves process standard output at shared container defined in conftest, overwriting previous value
         script_stdout_container.latest_stdout = io.TextIOWrapper(proc.stdout, encoding="utf-8")
 
     return _run_blender_script
