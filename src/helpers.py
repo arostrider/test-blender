@@ -1,12 +1,13 @@
 import subprocess
 import sys
+from collections.abc import Iterable
 from io import TextIOWrapper
 from pathlib import Path
 
 
 def run_blender_script(blender_exe_path: str | Path,
                        script_path: str | Path,
-                       script_args: list = None, *,
+                       script_args: Iterable = None, *,
                        headless: bool = True) -> TextIOWrapper:
     """
     Run script and save its output to ScriptStdoutContainer.latest_stdout
