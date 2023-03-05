@@ -2,9 +2,9 @@ import bpy
 from helpers import blender_script_args, roundf
 
 
-def move_cube(destination: tuple[float]):
+def move_cube(location: tuple[float]):
     bpy.context.preferences.view.show_splash = False
-    bpy.context.active_object.location = destination
+    bpy.context.active_object.location = location
 
 
 if __name__ == "__main__":
