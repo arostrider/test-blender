@@ -1,6 +1,6 @@
+import subprocess
 import sys
 from io import TextIOWrapper
-import subprocess
 from pathlib import Path
 
 
