@@ -1,6 +1,5 @@
-from helpers import blender_script_args
-
 import bpy
+from helpers import blender_script_args
 
 
 def move_cube(destination: tuple[float]):
