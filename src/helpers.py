@@ -1,3 +1,4 @@
+import sys
 from io import TextIOWrapper
 import subprocess
 from pathlib import Path
@@ -32,3 +33,8 @@ def run_blender_script(blender_exe_path: str | Path,
 
     # saves process standard output at shared container defined in conftest, overwriting previous value
     return TextIOWrapper(proc.stdout, encoding="utf-8")
+
+
+def blender_script_args() -> list:
+    argv = sys.argv
+    return sys.argv[argv.index("--") + 1:]

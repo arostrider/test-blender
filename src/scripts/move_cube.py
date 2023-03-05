@@ -1,4 +1,4 @@
-import sys
+from helpers import blender_script_args
 
 import bpy
 
@@ -9,10 +9,7 @@ def move_cube(destination: tuple[float]):
 
 
 if __name__ == "__main__":
-    argv = sys.argv
-    argv = argv[argv.index("--") + 1:]
-
-    destination = tuple(float(coord) for coord in argv)
+    destination = tuple(float(coord) for coord in blender_script_args())
     move_cube(destination)
 
     assert tuple(bpy.context.active_object.location) == (1.0, 1.0, 1.0), \
