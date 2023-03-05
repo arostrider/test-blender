@@ -30,7 +30,6 @@ def script_stdout_container() -> Type[ScriptStdoutContainer]:
 
 @pytest.fixture
 def run_blender_script(blender_exe_path: str, script_stdout_container):
-
     def _run_blender_script(path: str | Path, headless: bool = True):
         """
         Run script and save its output to ScriptStdoutContainer.latest_stdout
@@ -60,11 +59,13 @@ def run_blender_script(blender_exe_path: str, script_stdout_container):
     return _run_blender_script
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def parse_stdout(script_stdout_container):
-    yield
-    print("\n")
-    for line in script_stdout_container.latest_stdout:
-        print(line, end="")
-        if "AssertionError" in line:
-            pytest.fail(line)
+    def _parse_stdout():
+        print("\n")
+        for line in script_stdout_container.latest_stdout:
+            print(line, end="")
+            if "AssertionError" in line:
+                pytest.fail(line)
+
+    return _parse_stdout
