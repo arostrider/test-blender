@@ -39,3 +39,7 @@ def run_blender_script(blender_exe_path: str | Path,
 def blender_script_args() -> list:
     argv = sys.argv
     return sys.argv[argv.index("--") + 1:]
+
+
+def roundf(value: float, n: int = 4) -> float:
+    return round(value, n)

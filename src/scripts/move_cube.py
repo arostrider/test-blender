@@ -1,5 +1,5 @@
 import bpy
-from helpers import blender_script_args
+from helpers import blender_script_args, roundf
 
 
 def move_cube(destination: tuple[float]):
@@ -10,7 +10,6 @@ def move_cube(destination: tuple[float]):
 if __name__ == "__main__":
     destination = tuple(float(coord) for coord in blender_script_args())
     move_cube(destination)
+    new_location = tuple(roundf(coord) for coord in bpy.context.active_object.location)
 
-    assert tuple(bpy.context.active_object.location) == (1.0, 1.0, 1.0), \
-        f"Actual: {tuple(bpy.context.active_object.location)} " \
-        f"Expected: {(1.0, 1.0, 1.0)}"
+    assert new_location == destination, f"Actual: {new_location} Expected: {destination}"
