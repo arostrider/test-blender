@@ -29,7 +29,7 @@ Examples:
    be ready to demonstrate and explain the solution. The results of the work must be published in a public
    repository on GitHub and sent a link.
    Useful links:
-   https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html
+   https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html  
    https://docs.blender.org/api/current/info_quickstart.html
 
 ### 2. (optional) Implement Jenkins Pipeline Job
