@@ -1,5 +1,5 @@
 ### 1. Implement automatic testing of Blender 3.X.  
-Blender 3.3 - https://www.blender.org/download/releases/3-3/
+Blender 3.3 - https://www.blender.org/download/releases/3-3/  
 It is necessary to develop a script that will test the operation of Blender by executing several actions.
 
 Examples:
