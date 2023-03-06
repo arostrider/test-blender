@@ -4,7 +4,7 @@ from typing import Type
 
 import pytest
 
-from helpers.blender import run_blender_script as __run_blender_script
+from helpers.run_blender_script import run_blender_script as __run_blender_script
 
 
 def pytest_addoption(parser):

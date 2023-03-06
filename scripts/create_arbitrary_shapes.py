@@ -1,14 +1,14 @@
 import bpy
-from helpers.blender import blender_script_args, set_blender_render_settings, save_blend_file
+import helpers.blender_script_utils as bsu
 from helpers.math_wrap import roundf, randec
 from random import randint, random
 
 if __name__ == "__main__":
-    args = blender_script_args()
+    args = bsu.blender_script_args()
     print(args)
 
     # init
-    set_blender_render_settings(x_res=int(args['x']), y_res=int(args['y']), file_format='JPEG')
+    bsu.set_blender_render_settings(x_res=int(args['x']), y_res=int(args['y']), file_format='JPEG')
     bpy.context.preferences.view.show_splash = False
 
     # delete default cube
@@ -35,4 +35,4 @@ if __name__ == "__main__":
     print(bpy.data.scenes[0].render.resolution_y)
     print(bpy.data.scenes[0].render.image_settings.file_format)
 
-    save_blend_file(path=args["out"])
+    bsu.save_blend_file(path=args["out"])
