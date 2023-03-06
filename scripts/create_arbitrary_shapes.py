@@ -15,6 +15,7 @@ if __name__ == "__main__":
     object_to_delete = bpy.data.objects['Cube']
     bpy.data.objects.remove(object_to_delete, do_unlink=True)
 
+    # generate arbitrary shapes at a random positions (number of shapes from script args)
     number_of_shapes = int(args['free_vals'][0])
     for i in range(number_of_shapes):
         x, y, z = (roundf(randint(-10, 11) + randec()),
