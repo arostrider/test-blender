@@ -25,6 +25,17 @@ if __name__ == "__main__":
         add_arbitrary_shape = choice([bsu.add_cube, bsu.add_cone, bsu.add_sphere])
         add_arbitrary_shape(location=[x, y, z])
 
+        # add material to shape if appropriate material arguments in cli are passed
+        try:
+            material = bsu.new_shader(material_id=args['mat_name'],
+                                      type=args['mat_type'],
+                                      r=args['r'],
+                                      g=args['g'],
+                                      b=args['b'])
+            bpy.context.active_object.data.materials.append(material)
+        except KeyError as ex:
+            print(f"No or incorrect material argument passed from command line: {ex}")
+
         # round coordinates of active object (should be new cube)
         # to avoid assertion error due to high precision difference
         active_object_location = tuple(roundf(coord) for coord in bpy.context.active_object.location)
