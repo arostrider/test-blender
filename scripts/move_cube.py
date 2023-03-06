@@ -12,9 +12,10 @@ if __name__ == "__main__":
     print(args)
 
     set_blender_render_settings(x_res=int(args['x']), y_res=int(args['y']), file_format='JPEG')
-    destination = tuple(float(coord) for coord in args['free_vals'])
 
+    destination = tuple(float(coord) for coord in args['free_vals'])
     move_cube(destination)
+
     new_location = tuple(roundf(coord) for coord in bpy.context.active_object.location)
 
     assert new_location == destination, f"Actual: {new_location} Expected: {destination}"
