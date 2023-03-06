@@ -1,7 +1,7 @@
 import bpy
 import helpers.blender_script_utils as bsu
 from helpers.math_wrap import roundf, randec
-from random import randint, random
+from random import randint, choice
 
 if __name__ == "__main__":
     args = bsu.blender_script_args()
@@ -17,12 +17,12 @@ if __name__ == "__main__":
 
     number_of_shapes = int(args['free_vals'][0])
     for i in range(number_of_shapes):
-        # create cube at random location
-        # TODO: create arbitrary shape at random location
         x, y, z = (roundf(randint(-10, 11) + randec()),
                    roundf(randint(-10, 11) + randec()),
                    roundf(randint(-10, 11) + randec()))
-        bpy.ops.mesh.primitive_cube_add(location=(x, y, z))
+
+        add_arbitrary_shape = choice([bsu.add_cube, bsu.add_cone, bsu.add_sphere])
+        add_arbitrary_shape(location=[x, y, z])
 
         # round coordinates of active object (should be new cube)
         # to avoid assertion error due to high precision difference
