@@ -3,7 +3,7 @@ from random import random
 
 import pytest
 
-from helpers import roundf
+from helpers.math_wrap import roundf
 from project import SCRIPTS
 from environ import BLEND_OUT_DIR
 

@@ -1,5 +1,6 @@
 import bpy
-from helpers import blender_script_args, roundf, set_blender_render_settings, save_blend_file
+from helpers.blender import blender_script_args, set_blender_render_settings, save_blend_file
+from helpers.math_wrap import roundf
 
 
 def move_cube(location: tuple[float]):

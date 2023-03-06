@@ -68,7 +68,3 @@ def save_blend_file(path: str | Path):
         raise FileExistsError(str(path))
 
     bpy.ops.wm.save_as_mainfile(filepath=str(path))
-
-
-def roundf(value: float, n: int = 4) -> float:
-    return round(value, n)
