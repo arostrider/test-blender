@@ -12,6 +12,18 @@ def pytest_addoption(parser):
                      action="store",
                      help="Path to Blender executable.")
 
+    parser.addoption("--results-path",
+                     action="store",
+                     help="Path to directory where rendered images and test report will be saved.")
+
+    parser.addoption("--x-res",
+                     action="store",
+                     help="Width of rendered image.")
+
+    parser.addoption("--y-res",
+                     action="store",
+                     help="Height of rendered image.")
+
     parser.addoption("--no-headless",
                      action="store_true",
                      default=False,
@@ -21,6 +33,24 @@ def pytest_addoption(parser):
 @pytest.fixture
 def blender_exe_path(request) -> str:
     return request.config.getoption("--blender-exe-path")
+
+
+@pytest.fixture
+def results_path(request) -> str:
+    # TODO: implement test result (test report & rendered images) output
+    return request.config.getoption("--results-path")
+
+
+@pytest.fixture
+def x_res(request) -> str:
+    # TODO: implement rendering images
+    return request.config.getoption("--x-res")
+
+
+@pytest.fixture
+def y_res(request) -> str:
+    # TODO: implement rendering images
+    return request.config.getoption("--y-res")
 
 
 @pytest.fixture
