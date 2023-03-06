@@ -34,9 +34,25 @@ def run_blender_script(blender_exe_path: str | Path,
     return TextIOWrapper(proc.stdout, encoding="utf-8")
 
 
-def blender_script_args() -> list:
+def blender_script_args() -> dict:
     argv = sys.argv
-    return sys.argv[argv.index("--") + 1:]
+    args = iter(sys.argv[argv.index("--") + 1:])
+
+    args_dict = {"free_vals": []}
+
+    while True:
+        try:
+            arg = next(args)
+        except StopIteration:
+            break
+
+        if arg.startswith("-"):
+            arg = arg.replace("-", "")
+            args_dict.update({arg: next(args)})
+        else:
+            args_dict['free_vals'].append(arg)
+
+    return args_dict
 
 
 def set_blender_render_settings(x_res: int, y_res: float, file_format: str):

@@ -20,5 +20,5 @@ def randec() -> float:
                                          (randec(), randec(), randec())
                                          ])
 def test_move_cube(coordinates, run_blender_script, parse_stdout):
-    run_blender_script(SCRIPTS / "move_cube.py", coordinates)
+    run_blender_script(SCRIPTS / "move_cube.py", script_args=['-x', 1922, '-y', 1081, coordinates])
     parse_stdout()
