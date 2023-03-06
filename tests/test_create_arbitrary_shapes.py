@@ -21,9 +21,9 @@ def randec() -> float:
                                          (0, randec(), randec()),
                                          (randec(), randec(), randec())
                                          ])
-def test_move_cube(coordinates, run_blender_script, parse_stdout):
-    run_blender_script(SCRIPTS / "create_cube.py",
+def test_create_arbitrary_shapes(coordinates, run_blender_script, parse_stdout):
+    run_blender_script(SCRIPTS / "create_arbitrary_shapes.py",
                        script_args=['-x', 1922, '-y', 1081,
-                                    '-out', BLEND_OUT_DIR / f'create_cube_{time.time()}.blend',
+                                    '-out', BLEND_OUT_DIR / f'create_arbitrary_shapes_{time.time()}.blend',
                                     coordinates])
     parse_stdout()
