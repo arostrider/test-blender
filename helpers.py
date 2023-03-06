@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 from collections.abc import Iterable
@@ -60,6 +61,13 @@ def set_blender_render_settings(x_res: int, y_res: float, file_format: str):
         scene.render.resolution_x = x_res
         scene.render.resolution_y = y_res
         scene.render.image_settings.file_format = file_format
+
+
+def save_blend_file(path: str | Path):
+    if os.path.isfile(path):
+        raise FileExistsError(str(path))
+
+    bpy.ops.wm.save_as_mainfile(filepath=str(path))
 
 
 def roundf(value: float, n: int = 4) -> float:
