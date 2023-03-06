@@ -1,15 +1,10 @@
 import time
-from random import random
 
 import pytest
 
-from helpers.math_wrap import roundf
-from project import SCRIPTS
 from environ import BLEND_OUT_DIR
-
-
-def randec() -> float:
-    return roundf(random())
+from helpers.math_wrap import randec
+from project import SCRIPTS
 
 
 @pytest.mark.parametrize("coordinates", [(0, 0, 0),

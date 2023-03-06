@@ -1,6 +1,7 @@
 import bpy
 from helpers.blender import blender_script_args, set_blender_render_settings, save_blend_file
-from helpers.math_wrap import roundf
+from helpers.math_wrap import roundf, randec
+from random import randint, random
 
 if __name__ == "__main__":
     args = blender_script_args()
@@ -14,14 +15,21 @@ if __name__ == "__main__":
     object_to_delete = bpy.data.objects['Cube']
     bpy.data.objects.remove(object_to_delete, do_unlink=True)
 
-    # create new cube
-    x, y, z = tuple(float(coord) for coord in args['free_vals'])
-    bpy.ops.mesh.primitive_cube_add(location=(x, y, z))
+    number_of_shapes = int(args['free_vals'][0])
+    for i in range(number_of_shapes):
+        # create cube at random location
+        # TODO: create arbitrary shape at random location
+        x, y, z = (roundf(randint(-10, 11) + randec()),
+                   roundf(randint(-10, 11) + randec()),
+                   roundf(randint(-10, 11) + randec()))
+        bpy.ops.mesh.primitive_cube_add(location=(x, y, z))
 
-    # round coordinates of active object (should be new cube) to avoid assertion error due to high precision difference
-    active_object_location = tuple(roundf(coord) for coord in bpy.context.active_object.location)
+        # round coordinates of active object (should be new cube)
+        # to avoid assertion error due to high precision difference
+        active_object_location = tuple(roundf(coord) for coord in bpy.context.active_object.location)
 
-    assert active_object_location == (x, y, z), f"Actual: {active_object_location} Expected: {(x, y, z)}"
+        assert active_object_location == (x, y, z), f"Shape No: {i} " \
+                                                    f"Actual: {active_object_location} Expected: {(x, y, z)}"
 
     print(bpy.data.scenes[0].render.resolution_x)
     print(bpy.data.scenes[0].render.resolution_y)
