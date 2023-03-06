@@ -11,18 +11,13 @@ def run_blender_script(blender_exe_path: str | Path,
                        *,
                        headless: bool) -> TextIOWrapper:
     """
-    Run script and save its output to ScriptStdoutContainer.latest_stdout
-    The equivalent of running the script without saving stdout would be:
-    return subprocess.run(["powershell", "-Command",
-                            [f".'{blender_exe_path}' "
-                            f"{'-b' if headless else ''} "
-                            f"-P '{path}'"]
-                            "])
+    Run script and save its output to ScriptStdoutContainer.latest_stdout.
+
     :param blender_exe_path: path to Blender executable
     :param script_path: path to Blender python script
     :param script_args: arguments that should be passed to Blender python scrip
     :param headless: flag indicating if Blender should run in headless mode
-    :return: standard output wrapped in iterator
+    :return: iterator wrapping standard output of the executed Blender process
     """
     program: str = "powershell"
 
