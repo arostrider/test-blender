@@ -19,7 +19,7 @@ from project import SCRIPTS
 def test_move_cube(new_location, run_blender_script, parse_stdout):
     run_blender_script(SCRIPTS / "move_cube.py",
                        script_args=['-x', 1922, '-y', 1081,
-                                    '-coords', new_location,
                                     '-out', BLEND_OUT_DIR / f'move_cube_{time.time()}.blend',
+                                    new_location
                                     ])
     parse_stdout()
