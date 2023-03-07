@@ -1,0 +1,12 @@
+The only known way to setup this project right now is explained bleow.
+
+Setup external Python Blender scripting project:
+
+1. get Python version that Blender is using: Help > Save System Info > find the version in saved .txt file
+2. setup Python venv with same interpreter version as the one Blender is using
+3. download Blender API auto complete PyCharm files from https://github.com/Korchy/blender_autocomplete
+4. save appropriate version files to convinient location
+5. add the saved directoru as content root to PyCharm project: File > Settings > Project > Project Structure > Add Content Root
+6. add .env file to root directory > the file should contain: BLEND_OUT_DIR = \path\to\desired\output\dir
+7. modify run configuration of files in /tests package: Right Click on test file or Play button in test file > Modify Run Configuration > populate Additional Arguments: -vs --blender-exe-path "full\path\to\blender.exe"
+8. run tests from Pycharm context clicking on green Play button
