@@ -15,6 +15,8 @@ if __name__ == "__main__":
 
     bsu.new_light("MyLight", "POINT")
 
+    assert bpy.data.objects["MyLight"], "The light object 'MyLight' does not exist."
+
     print(bpy.data.scenes[0].render.resolution_x)
     print(bpy.data.scenes[0].render.resolution_y)
     print(bpy.data.scenes[0].render.image_settings.file_format)
