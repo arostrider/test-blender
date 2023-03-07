@@ -101,7 +101,7 @@ def add_cone(
     )
 
 
-def new_material(material_id):
+def new_material(material_id: str):
     mat = bpy.data.materials.get(material_id)
 
     if mat is None:
@@ -116,7 +116,7 @@ def new_material(material_id):
     return mat
 
 
-def new_shader(material_id, type, r, g, b):
+def new_shader(material_id: str, type: str, r: float, g: float, b: float):
     mat = new_material(material_id)
 
     nodes = mat.node_tree.nodes
