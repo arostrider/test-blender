@@ -10,7 +10,7 @@ def blender_script_args() -> dict:
     argv = sys.argv
     args = iter(sys.argv[argv.index("--") + 1:])
 
-    args_dict = {"free_vals": []}
+    args_dict = {}
 
     while True:
         try:
@@ -22,7 +22,10 @@ def blender_script_args() -> dict:
             arg = arg.replace("-", "")
             args_dict.update({arg: next(args)})
         else:
-            args_dict['free_vals'].append(arg)
+            try:
+                args_dict['free_vals'].append(arg)
+            except KeyError:
+                args_dict.update({'free_vals': [arg]})
 
     return args_dict
 
