@@ -150,7 +150,7 @@ def new_light(light_id: str, light_type: str):
     light_type = light_type.upper()
     data = bpy.data.lights.new(light_id, type=light_type)
     obj = bpy.data.objects.new(light_id, data)
-    bpy.context.collections.objects.link(obj)
+    bpy.context.collection.objects.link(obj)
 
 
 def render_image(path: Path):
