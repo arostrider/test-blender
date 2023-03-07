@@ -5,6 +5,7 @@ import pytest
 from environ import BLEND_OUT_DIR
 from project import SCRIPTS
 from helpers.math_wrap import randec
+from random import choice
 
 
 @pytest.mark.parametrize("number_of_shapes", [i for i in range(10)])
@@ -23,7 +24,7 @@ def test_create_arbitrary_shapes_with_material(number_of_shapes, run_blender_scr
                        script_args=['-x', 1922, '-y', 1081,
                                     '-n', number_of_shapes,
                                     '-mat_name', 'Shader1',
-                                    '-mat_type', 'diffuse',
+                                    '-mat_type', choice(['diffuse', 'emission', 'glossy']),
                                     '-r', randec(),
                                     '-g', randec(),
                                     '-b', randec(),
