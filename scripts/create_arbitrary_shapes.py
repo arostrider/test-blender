@@ -27,11 +27,8 @@ if __name__ == "__main__":
 
         # add material to shape if appropriate material arguments in cli are passed
         try:
-            material = bsu.new_shader(material_id=args['mat_name'],
-                                      type=args['mat_type'],
-                                      r=float(args['r']),
-                                      g=float(args['g']),
-                                      b=float(args['b']))
+            material = bsu.new_shader(material_id=args['mat_name'], material_type=args['mat_type'], r=float(args['r']),
+                                      g=float(args['g']), b=float(args['b']))
             bpy.context.active_object.data.materials.append(material)
         except KeyError as ex:
             print(f"No or incorrect material argument passed from command line: {ex}")
