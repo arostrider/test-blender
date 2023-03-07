@@ -44,4 +44,5 @@ if __name__ == "__main__":
     print(bpy.data.scenes[0].render.resolution_y)
     print(bpy.data.scenes[0].render.image_settings.file_format)
 
+    bsu.render_image(path=args["rend_dest"])
     bsu.save_blend_file(path=args["out"])

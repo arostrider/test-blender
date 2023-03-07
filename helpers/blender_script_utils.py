@@ -144,3 +144,8 @@ def new_shader(material_id: str, material_type: str, r: float, g: float, b: floa
     links.new(shader.outputs[0], output.inputs[0])
 
     return mat
+
+
+def render_image(path: Path):
+    bpy.context.scene.render.filepath = path
+    bpy.ops.render.render(write_still=True)

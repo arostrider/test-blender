@@ -13,7 +13,8 @@ def test_create_arbitrary_shapes(number_of_shapes, run_blender_script, parse_std
     run_blender_script(SCRIPTS / "create_arbitrary_shapes.py",
                        script_args=['-x', 1922, '-y', 1081,
                                     '-n', number_of_shapes,
-                                    '-out', BLEND_OUT_DIR / f'create_arbitrary_shapes_{time.time()}.blend'
+                                    '-out', BLEND_OUT_DIR / f'create_arbitrary_shapes_{time.time()}.blend',
+                                    '-rend_dest', BLEND_OUT_DIR / f'create_arbitrary_shapes_{time.time()}.jpeg'
                                     ])
     parse_stdout()
 
@@ -30,5 +31,7 @@ def test_create_arbitrary_shapes_with_material(number_of_shapes, run_blender_scr
                                     '-b', randec(),
                                     '-out',
                                     BLEND_OUT_DIR / f'create_arbitrary_shapes_with_material_{time.time()}.blend',
+                                    '-rend_dest',
+                                    BLEND_OUT_DIR / f'create_arbitrary_shapes_with_material_{time.time()}.jpeg'
                                     ])
     parse_stdout()
