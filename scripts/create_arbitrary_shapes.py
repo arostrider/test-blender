@@ -48,6 +48,7 @@ if __name__ == "__main__":
         active_object_material = bpy.context.active_object.material_slots[0].material
         material_generated_from_cli_args = bpy.data.materials[args['mat_name']]
 
+        # TODO: maybe a better assertions (cmdline args values in expected) ?
         assert active_object_material.name == material_generated_from_cli_args.name, \
             f"Shape No: {i} " \
             f"Actual: {active_object_material.name} " \
