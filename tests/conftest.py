@@ -4,6 +4,7 @@ from typing import Type
 
 import pytest
 
+from helpers.all_builtin_exception_names import all_builtin_exception_names
 from helpers.run_blender_script import run_blender_script as __run_blender_script
 
 
@@ -90,7 +91,14 @@ def parse_stdout(script_stdout_container):
         print("\n")
         for line in script_stdout_container.latest_stdout:
             print(line, end="")
-            if "AssertionError" in line:
+
+            # TODO: find better way to check if test should fail
+            #  this could easily be abused
+
+            if ":" not in line:
+                continue
+
+            if line.split(":")[0] in all_builtin_exception_names():
                 pytest.fail(line)
 
     return _parse_stdout
