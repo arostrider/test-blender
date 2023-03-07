@@ -25,20 +25,38 @@ if __name__ == "__main__":
         add_arbitrary_shape = choice([bsu.add_cube, bsu.add_cone, bsu.add_sphere])
         add_arbitrary_shape(location=[x, y, z])
 
-        # add material to shape if appropriate material arguments in cli are passed
-        try:
-            material = bsu.new_shader(material_id=args['mat_name'], material_type=args['mat_type'], r=float(args['r']),
-                                      g=float(args['g']), b=float(args['b']))
-            bpy.context.active_object.data.materials.append(material)
-        except KeyError as ex:
-            print(f"No or incorrect material argument passed from command line: {ex}")
-
         # round coordinates of active object (should be new cube)
         # to avoid assertion error due to high precision difference
         active_object_location = tuple(roundf(coord) for coord in bpy.context.active_object.location)
 
         assert active_object_location == (x, y, z), f"Shape No: {i} " \
                                                     f"Actual: {active_object_location} Expected: {(x, y, z)}"
+
+        # add material to shape if appropriate material arguments in cli are passed
+        # else, skip the code below the except block
+        try:
+            material = bsu.new_shader(material_id=args['mat_name'], material_type=args['mat_type'], r=float(args['r']),
+                                      g=float(args['g']), b=float(args['b']))
+        except KeyError as ex:
+            print(f"No or incorrect material argument passed from command line: {ex}")
+            continue
+
+        # add material
+        bpy.context.active_object.data.materials.append(material)
+
+        # extract actual and expected values for the assertion
+        active_object_material = bpy.context.active_object.material_slots[0].material
+        material_generated_from_cli_args = bpy.data.materials[args['mat_name']]
+
+        assert active_object_material.name == material_generated_from_cli_args.name, \
+            f"Shape No: {i} " \
+            f"Actual: {active_object_material.name} " \
+            f"Expected: {material_generated_from_cli_args.name}"
+
+        assert active_object_material.diffuse_color == material_generated_from_cli_args.diffuse_color, \
+            f"Shape No: {i} " \
+            f"Actual: {active_object_material.diffuse_color} " \
+            f"Expected: {material_generated_from_cli_args.diffuse_color}"
 
     print(bpy.data.scenes[0].render.resolution_x)
     print(bpy.data.scenes[0].render.resolution_y)
