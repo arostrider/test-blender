@@ -11,7 +11,7 @@ if __name__ == "__main__":
     bpy.context.preferences.view.show_splash = False
 
     # move default cube to destination provided in cmdline args
-    destination = tuple(float(coord) for coord in args['free_vals'])
+    destination = tuple(float(coord) for coord in args['coords'])
     bpy.context.active_object.location = destination
 
     # round coordinates of active object (should be default cube)

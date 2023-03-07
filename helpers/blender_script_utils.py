@@ -6,6 +6,7 @@ import bpy
 
 
 def blender_script_args() -> dict:
+    # TODO: remove ability to read 'free_vals' args
     argv = sys.argv
     args = iter(sys.argv[argv.index("--") + 1:])
 
