@@ -16,7 +16,7 @@ if __name__ == "__main__":
     bpy.data.objects.remove(object_to_delete, do_unlink=True)
 
     # generate arbitrary shapes at a random positions (number of shapes from script args)
-    number_of_shapes = int(args['free_vals'][0])
+    number_of_shapes = int(args['n'])
     for i in range(number_of_shapes):
         x, y, z = (roundf(randint(-10, 11) + randec()),
                    roundf(randint(-10, 11) + randec()),
@@ -29,9 +29,9 @@ if __name__ == "__main__":
         try:
             material = bsu.new_shader(material_id=args['mat_name'],
                                       type=args['mat_type'],
-                                      r=args['r'],
-                                      g=args['g'],
-                                      b=args['b'])
+                                      r=float(args['r']),
+                                      g=float(args['g']),
+                                      b=float(args['b']))
             bpy.context.active_object.data.materials.append(material)
         except KeyError as ex:
             print(f"No or incorrect material argument passed from command line: {ex}")
