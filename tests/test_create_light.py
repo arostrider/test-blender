@@ -31,6 +31,8 @@ def test_create_light(run_blender_script, parse_stdout, test_data_blend_file_pat
     run_blender_script(SCRIPTS / "create_light.py",
                        blend_file_path=test_data_blend_file_path,
                        script_args=['-x', 1922, '-y', 1081,
+                                    '-li_name', 'NewLight',
+                                    '-li_type', 'SUN',
                                     '-out', BLEND_OUT_DIR / f'create_light_{time.time()}.blend',
                                     '-rend_dest', BLEND_OUT_DIR / f'create_light_{time.time()}.jpeg',
                                     ])
