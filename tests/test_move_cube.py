@@ -17,10 +17,11 @@ from project import SCRIPTS
                                           (randec(), randec(), randec())
                                           ])
 def test_move_cube(new_location, run_blender_script, parse_stdout):
+    timestamp = time.time()
     run_blender_script(SCRIPTS / "move_cube.py",
                        script_args=['-x', 1922, '-y', 1081,
-                                    '-out', BLEND_OUT_DIR / f'move_cube_{time.time()}.blend',
-                                    '-rend_dest', BLEND_OUT_DIR / f'move_cube_{time.time()}.jpeg',
+                                    '-out', BLEND_OUT_DIR / f'move_cube_{timestamp}.blend',
+                                    '-rend_dest', BLEND_OUT_DIR / f'move_cube_{timestamp}.jpeg',
                                     new_location
                                     ])
     parse_stdout()
