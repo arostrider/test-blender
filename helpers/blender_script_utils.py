@@ -30,21 +30,21 @@ def blender_script_args() -> dict:
     return args_dict
 
 
-def set_blender_render_settings(x_res: int, y_res: float, file_format: str):
+def set_blender_render_settings(x_res: int, y_res: float, file_format: str) -> None:
     for scene in bpy.data.scenes:
         scene.render.resolution_x = x_res
         scene.render.resolution_y = y_res
         scene.render.image_settings.file_format = file_format
 
 
-def save_blend_file(path: str | Path):
+def save_blend_file(path: str | Path) -> None:
     if os.path.isfile(path):
         raise FileExistsError(str(path))
 
     bpy.ops.wm.save_as_mainfile(filepath=str(path))
 
 
-def add_cube(
+def draw_cube(
         size: float = 1.0,
         location: list[float] = (0.0, 0.0, 0.0),
         rotation: list[float] = (0.0, 0.0, 0.0),
@@ -61,13 +61,12 @@ def add_cube(
 
 
 # docs: https://docs.blender.org/api/current/bpy.ops.mesh.html#bpy.ops.mesh.primitive_ico_sphere_add
-def add_sphere(
+def draw_sphere(
         subdivisions: int = 4,
         radius: float = 1.0,
         location: list[float] = (0.0, 0.0, 0.0),
         rotation: list[float] = (0.0, 0.0, 0.0),
-        scale: list[float] = (1.0, 1.0, 1.0)
-) -> None:
+        scale: list[float] = (1.0, 1.0, 1.0)) -> None:
     bpy.ops.mesh.primitive_ico_sphere_add(
         subdivisions=subdivisions,
         radius=radius,
@@ -81,15 +80,14 @@ def add_sphere(
 
 
 # docs: https://docs.blender.org/api/current/bpy.ops.mesh.html#bpy.ops.mesh.primitive_cone_add
-def add_cone(
+def draw_cone(
         vertices: int = 4,
         radius1: float = 1.0,
         radius2: float = 0.0,
         depth: float = 2.0,
         location: list[float] = (0.0, 0.0, 0.0),
         rotation: list[float] = (0.0, 0.0, 0.0),
-        scale: list[float] = (1.0, 1.0, 1.0)
-) -> None:
+        scale: list[float] = (1.0, 1.0, 1.0)) -> None:
     bpy.ops.mesh.primitive_cone_add(
         vertices=vertices,
         radius1=radius1,
@@ -105,26 +103,28 @@ def add_cone(
     )
 
 
-def new_material(material_id: str):
-    mat = bpy.data.materials.get(material_id)
+def new_material(material_id: str) -> bpy.types.Material:
+    material = bpy.data.materials.get(material_id)
 
-    if mat is None:
-        mat = bpy.data.materials.new(name=material_id)
+    if material is None:
+        material = bpy.data.materials.new(name=material_id)
 
-    mat.use_nodes = True
+    material.use_nodes = True
 
-    if mat.node_tree:
-        mat.node_tree.links.clear()
-        mat.node_tree.nodes.clear()
+    if material.node_tree:
+        material.node_tree.links.clear()
+        material.node_tree.nodes.clear()
 
-    return mat
+    return material
 
 
-def new_shader(material_id: str, material_type: str, r: float, g: float, b: float):
-    mat = new_material(material_id)
-
-    nodes = mat.node_tree.nodes
-    links = mat.node_tree.links
+def add_shader_to_material(material: bpy.types.Material,
+                           material_type: str,
+                           r: float,
+                           g: float,
+                           b: float) -> None:
+    nodes = material.node_tree.nodes
+    links = material.node_tree.links
     output = nodes.new(type='ShaderNodeOutputMaterial')
 
     if material_type == "diffuse":
@@ -141,18 +141,20 @@ def new_shader(material_id: str, material_type: str, r: float, g: float, b: floa
         nodes["Glossy BSDF"].inputs[0].default_value = (r, g, b, 1)
         nodes["Glossy BSDF"].inputs[1].default_value = 0
 
+    else:
+        raise ValueError(f"Invalid material_type arg value: '{material_type}'. "
+                         f"Valid values: 'diffuse', 'emission', 'glossy'")
+
     links.new(shader.outputs[0], output.inputs[0])
 
-    return mat
 
-
-def new_light(light_id: str, light_type: str):
+def new_light(light_id: str, light_type: str) -> None:
     light_type = light_type.upper()
     data = bpy.data.lights.new(light_id, type=light_type)
     obj = bpy.data.objects.new(light_id, data)
     bpy.context.collection.objects.link(obj)
 
 
-def render_image(path: Path):
+def render_image(path: Path) -> None:
     bpy.context.scene.render.filepath = path
     bpy.ops.render.render(write_still=True)

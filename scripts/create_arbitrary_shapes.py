@@ -22,7 +22,7 @@ if __name__ == "__main__":
                    roundf(randint(-10, 11) + randec()),
                    roundf(randint(-10, 11) + randec()))
 
-        add_arbitrary_shape = choice([bsu.add_cube, bsu.add_cone, bsu.add_sphere])
+        add_arbitrary_shape = choice([bsu.draw_cube, bsu.draw_cone, bsu.draw_sphere])
         add_arbitrary_shape(location=[x, y, z])
 
         # round coordinates of active object (should be new cube)
@@ -35,8 +35,12 @@ if __name__ == "__main__":
         # add material to shape if appropriate material arguments in cli are passed
         # else, skip the code below the except block
         try:
-            material = bsu.new_shader(material_id=args['mat_name'], material_type=args['mat_type'], r=float(args['r']),
-                                      g=float(args['g']), b=float(args['b']))
+            material = bsu.new_material(material_id=args['mat_name'])
+            bsu.add_shader_to_material(material,
+                                       material_type=args['mat_type'],
+                                       r=float(args['r']),
+                                       g=float(args['g']),
+                                       b=float(args['b']))
         except KeyError as ex:
             print(f"No or incorrect material argument passed from command line: {ex}")
             continue
